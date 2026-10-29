@@ -2,13 +2,13 @@
 
 ## Setting up the fake API (json-server)
 
-Update the file `src/services/api.ts`.
-
-Before running your 'json-server', get your computer's IP address and update your baseURL to `http://your_ip_address_here:3333` and then run:
+The app finds json-server on the same computer as the Expo dev server (see `src/services/api.ts`), so there is no IP address to edit. Start the fake API so other devices on your network can reach it:
 
 ```
-npx json-server --watch db.json --port 3333 --host your_ip_address_here -m ./node_modules/json-server-auth
+npx json-server --watch db.json --port 3333 --host 0.0.0.0 -m ./node_modules/json-server-auth
 ```
+
+Then start the app with `npx expo start` and open it in Expo Go. Every seed user's password is `123456`.
 
 To access your server online without running json-server locally, you can set your baseURL to:
 
