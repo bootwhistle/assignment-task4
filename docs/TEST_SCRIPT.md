@@ -56,9 +56,15 @@
 1. **Email regex only accepts 3-letter endings.** `validateEmail` in `src/utils/index.ts` used `/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/`. The last group, `(\.\w{3})+`, means every part after the last dot must be exactly three characters, so `.it`, `.br`, `.ca` and `.info` all fail while `.com` passes. Two of the seeded volunteers (`luigi@carluccio.it`, `john@silva.com.br`) could never log in.
 2. **Log in button was never disabled.** The Login screen did not pass `disabled` to `BigButton`, and `BigButton` only used `disabled` for its colour, never passing it on to the underlying `RectButton`. So even a disabled `BigButton` would still respond to taps.
 
-## Results after the fix
+## Unit test results
 
-Fill in the Actual result column on the device run, and attach the `npm test` output.
+| When | Commit | `npm test` |
+|---|---|---|
+| Before the fix | `ef8bbad` (tests added) | 13 failed, 15 passed, 28 total |
+| After the email fix | `e0c78f5` | 2 failed (disabled button), 26 passed |
+| After the button fix | `aeb12ea` | 28 passed, 28 total |
+
+## Results after the fix (manual, on device)
 
 | # | Actual result | Status |
 |---|---|---|
