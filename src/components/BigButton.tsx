@@ -14,10 +14,17 @@ interface BigButtonProps {
 
 export default function BigButton(props: BigButtonProps) {
     const styles = styling(props);
-    const { featherIconName, label, style, onPress } = props;
+    const { featherIconName, label, style, disabled = false, onPress } = props;
 
     return (
-        <RectButton style={[styles.button, style]} onPress={onPress} accessibilityLabel={label} accessibilityRole="button">
+        <RectButton
+            style={[styles.button, style]}
+            onPress={onPress}
+            enabled={!disabled}
+            accessibilityLabel={label}
+            accessibilityRole="button"
+            accessibilityState={{ disabled }}
+        >
             {featherIconName && <Feather style={styles.icon} name={featherIconName} size={24} color="#FFF" />}
             <Text style={styles.label}>{label}</Text>
         </RectButton>

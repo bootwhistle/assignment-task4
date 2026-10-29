@@ -67,6 +67,9 @@ export default function Login({ navigation }: StackScreenProps<any>) {
         }
     };
 
+    // Log in stays greyed out until both fields have something in them
+    const formIsFilled = email.trim().length > 0 && password.length > 0;
+
     const formIsValid = () => {
         const emailIsValid = !isEmailInvalid();
         const passwordIsValid = !isPasswordInvalid();
@@ -135,7 +138,13 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     onEndEditing={isPasswordInvalid}
                 />
                 <Spacer size={80} />
-                <BigButton style={{ marginBottom: 8 }} onPress={handleAuthentication} label="Log in" color="#FF8700" />
+                <BigButton
+                    style={{ marginBottom: 8 }}
+                    onPress={handleAuthentication}
+                    label="Log in"
+                    color="#FF8700"
+                    disabled={!formIsFilled}
+                />
                 <Spinner
                     visible={isAuthenticating}
                     textContent={'Authenticating...'}
