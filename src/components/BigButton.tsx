@@ -17,7 +17,7 @@ export default function BigButton(props: BigButtonProps) {
     const { featherIconName, label, style, onPress } = props;
 
     return (
-        <RectButton style={[styles.button, style]} onPress={onPress}>
+        <RectButton style={[styles.button, style]} onPress={onPress} accessibilityLabel={label} accessibilityRole="button">
             {featherIconName && <Feather style={styles.icon} name={featherIconName} size={24} color="#FFF" />}
             <Text style={styles.label}>{label}</Text>
         </RectButton>
