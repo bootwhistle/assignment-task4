@@ -68,13 +68,21 @@
 
 | # | Actual result | Status |
 |---|---|---|
-| TC1 | | |
-| TC2 | | |
-| TC3 | | |
-| TC4 | | |
-| TC5 | | |
-| TC6 | | |
-| TC7 | | |
-| TC8 | | |
-| TC9 | | |
-| TC10 | | |
+| TC1 | Log in button is greyed out. Tapping it does nothing. | PASS |
+| TC2 | Log in button stays greyed out. | PASS |
+| TC3 | No "invalid email". Login succeeds and the events map screen opens (see known issue). | PASS |
+| TC4 | No "invalid email". Login succeeds and the events map screen opens (see known issue). | PASS |
+| TC5 | Login succeeds and the events map screen opens (see known issue). | PASS |
+| TC6 | Email accepted after trimming and lower-casing. The events map screen opens (see known issue). | PASS |
+| TC7 | "invalid email" is shown. | PASS |
+| TC8 | "invalid email" is shown. | PASS |
+| TC9 | "invalid password" is shown. | PASS |
+| TC10 | The email passes validation and an "Incorrect password" alert is shown. | PASS |
+
+Tested on a Pixel 9 (Android 17) in Expo Go 57.0.9.
+
+**Before-fix results:** TC3 was reproduced on this device. The other rows in the before-fix table come from reading the original code and from the failing unit tests.
+
+## Known issue (not part of this fix)
+
+After login, the events map screen opens but the map itself is blank: a light grey background with the Google logo. The device log shows `Google Android Maps SDK: Authorization failure`. The project has no Google Maps API key of its own, so the map tiles do not load in this test environment. Login and navigation to the screen are not affected. The map needs its own API key setup, which is outside the scope of this login fix.
