@@ -53,7 +53,6 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     setInCache('accessToken', response.data.accessToken);
                     authenticationContext?.setValue(response.data.user);
                     setIsAuthenticating(false);
-                    123;
                     navigation.navigate('EventsMap');
                 })
                 .catch((error) => {
@@ -66,6 +65,9 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                 });
         }
     };
+
+    // Log in stays greyed out until both fields have something in them
+    const formIsFilled = email.trim().length > 0 && password.length > 0;
 
     const formIsValid = () => {
         const emailIsValid = !isEmailInvalid();
@@ -117,6 +119,7 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     {emailIsInvalid && <Text style={styles.error}>invalid email</Text>}
                 </View>
                 <TextInput
+                    accessibilityLabel="Email"
                     style={[styles.input, emailIsInvalid && styles.invalid]}
                     onChangeText={(value) => setEmail(value)}
                     onEndEditing={isEmailInvalid}
@@ -127,13 +130,20 @@ export default function Login({ navigation }: StackScreenProps<any>) {
                     {passwordIsInvalid && <Text style={styles.error}>invalid password</Text>}
                 </View>
                 <TextInput
+                    accessibilityLabel="Password"
                     style={[styles.input, passwordIsInvalid && styles.invalid]}
                     secureTextEntry={true}
                     onChangeText={(value) => setPassword(value)}
                     onEndEditing={isPasswordInvalid}
                 />
                 <Spacer size={80} />
-                <BigButton style={{ marginBottom: 8 }} onPress={handleAuthentication} label="Log in" color="#FF8700" />
+                <BigButton
+                    style={{ marginBottom: 8 }}
+                    onPress={handleAuthentication}
+                    label="Log in"
+                    color="#FF8700"
+                    disabled={!formIsFilled}
+                />
                 <Spinner
                     visible={isAuthenticating}
                     textContent={'Authenticating...'}
